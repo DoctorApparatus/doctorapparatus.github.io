@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<!--
+  Freelance capability page for Kilian Ischtschuk, built from CV content.
+  Add GitHub/LinkedIn/portfolio links or a photo if you'd like them included.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kilian Ischtschuk — Freelance Software &amp; Software Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1b1c1f;
+    --panel:#232427;
+    --line:#3a3b40;
+    --line-soft:#2b2c30;
+    --ink:#e9e9ea;
+    --dim:#909296;
+    --amber:#d1352b;
+    --redline:#d1352b;
+    --steel:#5a5c62;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  .grid-bg{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 48px);
+  }
+  .grid-bg::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(209,53,43,0.9) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(209,53,43,0.9) 0 1px, transparent 1px 48px);
+    -webkit-mask-image:radial-gradient(circle 140px at var(--mx,-999px) var(--my,-999px), #000 0%, transparent 75%);
+    mask-image:radial-gradient(circle 140px at var(--mx,-999px) var(--my,-999px), #000 0%, transparent 75%);
+  }
+  .wrap{ position:relative; z-index:1; }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:var(--amber); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  ::selection{ background:var(--amber); color:var(--bg); }
+  a:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--amber); outline-offset:2px; }
+
+  /* hazard strip — used once, as a signal accent under the title block */
+  .hazard{
+    height:6px;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--redline) 0 14px,
+      var(--steel) 14px 28px
+    );
+  }
+
+  .wrap{max-width:900px; margin:0 auto; padding:40px 22px 90px;}
+
+  /* ---------- title block (engineering-drawing corner block) ---------- */
+  .titleblock{
+    border:1px solid var(--line);
+    background:var(--panel);
+  }
+  .titleblock .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:26px 26px 20px;
+    border-bottom:1px solid var(--line);
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .titleblock h1{
+    margin:0 0 8px;
+    font-size:clamp(26px,4vw,38px);
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .titleblock .role{
+    margin:0;
+    color:var(--amber);
+    font-size:15px;
+  }
+  .status{
+    text-align:right;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--dim);
+    white-space:nowrap;
+  }
+  .status .avail{
+    display:inline-block;
+    color:#fff;
+    background:var(--amber);
+    padding:3px 8px;
+    border-radius:var(--radius);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .meta-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--dim);
+  }
+  .meta-row div{
+    padding:10px 16px;
+    border-right:1px solid var(--line);
+  }
+  .meta-row div:last-child{border-right:none;}
+  .meta-row b{display:block; color:var(--ink); font-size:12.5px; margin-top:3px; font-weight:500;}
+  @media (max-width:640px){
+    .meta-row{grid-template-columns:1fr 1fr;}
+    .meta-row div{border-bottom:1px solid var(--line);}
+  }
+
+  /* ---------- summary ---------- */
+  .summary{
+    padding:26px 26px 6px;
+    font-size:16px;
+    color:var(--ink);
+    max-width:68ch;
+  }
+  .summary p{margin:0 0 16px;}
+
+  /* ---------- section shell ---------- */
+  section.block{
+    margin-top:34px;
+  }
+  section.block > h2{
+    font-size:13px;
+    letter-spacing:0;
+    color:var(--dim);
+    margin:0 0 14px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+
+  /* ---------- services ---------- */
+  .services{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  @media (max-width:680px){ .services{grid-template-columns:1fr;} }
+  .svc{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    border-left:3px solid transparent;
+    padding:22px 24px 22px 21px;
+    background:var(--panel);
+    transition:border-left-color .15s ease, background-color .15s ease;
+  }
+  .svc:hover{
+    border-left-color:var(--amber);
+    background:var(--line-soft);
+  }
+  .svc:hover h3{color:var(--amber);}
+  .svc .code{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--amber);
+    display:block;
+    margin-bottom:8px;
+  }
+  .svc h3{margin:0 0 8px; font-size:17px; font-weight:600; transition:color .15s ease;}
+  .svc p{margin:0; color:var(--dim); font-size:14px;}
+
+  /* ---------- domain experience ---------- */
+  .domains{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .domain{
+    background:var(--panel);
+    padding:20px 24px 20px 21px;
+    border-left:3px solid transparent;
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:18px;
+    transition:border-left-color .15s ease, background-color .15s ease;
+  }
+  .domain:hover{
+    border-left-color:var(--amber);
+    background:var(--line-soft);
+  }
+  .domain:hover h3{color:var(--amber);}
+  @media (max-width:640px){ .domain{grid-template-columns:1fr; gap:6px;} }
+  .domain h3{
+    margin:0;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    transition:color .15s ease;
+  }
+  .domain h3 span{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--dim);
+    font-weight:400;
+    margin-top:4px;
+  }
+  .domain p{margin:0; color:var(--dim); font-size:14px;}
+
+  /* ---------- skills strip ---------- */
+  .skillstrip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+  .skillstrip span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:6px 11px;
+    border-radius:var(--radius);
+    background:var(--panel);
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .skillstrip span:hover{
+    border-color:var(--amber);
+    color:var(--amber);
+  }
+
+  /* ---------- experience timeline ---------- */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .job{
+    background:var(--panel);
+    padding:22px 24px;
+  }
+  .job .job-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px 18px;
+    margin-bottom:4px;
+  }
+  .job h3{
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .job .when{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--amber);
+    white-space:nowrap;
+  }
+  .job .where{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--dim);
+    margin:0 0 10px;
+  }
+  .job p.desc{
+    margin:0 0 12px;
+    color:var(--dim);
+    font-size:14px;
+    max-width:64ch;
+  }
+  .stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .stack span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:3px 8px;
+    border-radius:var(--radius);
+    background:var(--bg);
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .stack span:hover{
+    border-color:var(--amber);
+    color:var(--amber);
+  }
+
+  /* ---------- skills overview (category cards) ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  @media (max-width:680px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-cat{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    border-left:3px solid transparent;
+    padding:20px 22px 20px 19px;
+    background:var(--panel);
+    transition:border-left-color .15s ease, background-color .15s ease;
+  }
+  .skill-cat:hover{
+    border-left-color:var(--amber);
+    background:var(--line-soft);
+  }
+  .skill-cat:hover h3{color:var(--amber);}
+  .skill-cat h3{margin:0 0 3px; font-size:15px; font-weight:600; color:var(--ink); transition:color .15s ease;}
+  .skill-cat .sub{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--dim);
+    margin-bottom:13px;
+  }
+
+  /* ---------- education ---------- */
+  .edu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:640px){ .edu{grid-template-columns:1fr;} }
+  .edu-item{
+    background:var(--panel);
+    padding:18px 22px 18px 19px;
+    border-left:3px solid transparent;
+    transition:border-left-color .15s ease, background-color .15s ease;
+  }
+  .edu-item:hover{
+    border-left-color:var(--amber);
+    background:var(--line-soft);
+  }
+  .edu-item:hover h4{color:var(--amber);}
+  .edu-item h4{
+    margin:0 0 4px;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink);
+    transition:color .15s ease;
+  }
+  .edu-item .when{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--amber);
+    display:block;
+    margin-bottom:6px;
+  }
+  .edu-item p{margin:0; color:var(--dim); font-size:13.5px;}
+
+  /* ---------- engagement ---------- */
+  .engage{
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:24px 26px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+  }
+  @media (max-width:680px){ .engage{grid-template-columns:1fr;} }
+  .engage h4{
+    margin:0 0 6px;
+    font-size:14px;
+    color:var(--amber);
+  }
+  .engage p{margin:0; color:var(--dim); font-size:13.5px;}
+
+  /* ---------- contact / signature block ---------- */
+  .signature{
+    margin-top:40px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+  }
+  .signature .lines a{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .signature .lines a:hover{color:var(--amber);}
+  .signature .stamp{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--redline);
+    border:2px solid var(--redline);
+    padding:8px 14px;
+    border-radius:var(--radius);
+    transform:rotate(-2deg);
+    white-space:nowrap;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--dim);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    margin-top:36px;
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg" id="gridBg"></div>
+<div class="wrap">
+
+  <div class="titleblock">
+    <div class="top">
+      <div>
+        <h1>Kilian Ischtschuk</h1>
+        <p class="role">Software Architect &amp; Software Developer — Linux, Cloud &amp; Rust</p>
+      </div>
+      <div class="status">
+        <span class="avail">Available for contract work</span><br>
+        Oldenburg, Germany
+      </div>
+    </div>
+    <div class="meta-row">
+      <div>Focus<b>Embedded Linux · Nvidia Jetson</b></div>
+      <div>Core language<b>Rust</b></div>
+      <div>Platforms<b>Linux, Jetson, Android, Desktop</b></div>
+      <div>Engagement<b>Freelance / contract</b></div>
+    </div>
+  </div>
+  <div class="hazard"></div>
+
+  <div class="summary">
+    <p>I'm currently working in the defence industry, building embedded Linux environments for defence electronics on Nvidia Jetson platforms. Alongside that I bring several years of broader experience across IT security, cloud infrastructure, database administration and AI-driven web development.</p>
+    <p>On the development side I build in Rust and on modern web technologies — from cross-platform apps with Tauri to Android — and earlier in my career worked hardware-near on high-availability clustering systems.</p>
+  </div>
+
+  <section class="block">
+    <h2>Services</h2>
+    <div class="services">
+      <div class="svc">
+        <span class="code mono">RUST</span>
+        <h3>Rust development</h3>
+        <p>Application and systems-level Rust for software that needs to be correct and stay correct — a natural fit for defence and other high-reliability environments.</p>
+      </div>
+      <div class="svc">
+        <span class="code mono">DESKTOP</span>
+        <h3>Cross-platform desktop apps</h3>
+        <p>Native-feeling desktop applications built with Tauri — a Rust backend paired with a web front end, shipped to Linux, Windows and macOS from one codebase.</p>
+      </div>
+      <div class="svc">
+        <span class="code mono">ANDROID</span>
+        <h3>Android app development</h3>
+        <p>Android applications built and maintained end to end, from first release through ongoing support.</p>
+      </div>
+      <div class="svc">
+        <span class="code mono">WEB</span>
+        <h3>Web front-end &amp; APIs</h3>
+        <p>Front ends and integrations built on HTML, CSS, JavaScript and TypeScript, talking to APIs over HTTP — the same web foundations that sit behind the Tauri apps above.</p>
+      </div>
+      <div class="svc">
+        <span class="code mono">EMBEDDED</span>
+        <h3>Embedded Linux &amp; edge computing</h3>
+        <p>Embedded Linux environments for defence and industrial electronics, running on Nvidia Jetson edge-computing platforms.</p>
+      </div>
+      <div class="svc">
+        <span class="code mono">DATA</span>
+        <h3>Database administration</h3>
+        <p>Schema design, day-to-day administration and performance troubleshooting for the databases your applications and services depend on.</p>
+      </div>
+      <div class="svc">
+        <span class="code mono">OPS</span>
+        <h3>Infrastructure &amp; managed support</h3>
+        <p>Linux-based infrastructure setup and ongoing support, drawing on hands-on experience supporting client environments in an MSP setting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Where I've worked</h2>
+    <div class="domains">
+      <div class="domain">
+        <h3>Defence electronics &amp; embedded systems <span>Currently — Rheinmetall Electronics</span></h3>
+        <p>Building embedded Linux environments for defence electronics, running on Nvidia Jetson edge-computing platforms.</p>
+      </div>
+      <div class="domain">
+        <h3>IT security &amp; managed cloud <span>Previous role</span></h3>
+        <p>Hardening and monitoring customer infrastructure — endpoint protection, SIEM, vulnerability scanning and firewalls — plus administering Linux/Windows server and cloud environments and handling major incidents for hosting customers.</p>
+      </div>
+      <div class="domain">
+        <h3>AI-driven web platforms <span>Previous role</span></h3>
+        <p>Built a multi-user AI web application for document analysis, including a chat feature and generative UI on top of vector embeddings and LLM inference, deployed through CI/CD.</p>
+      </div>
+      <div class="domain">
+        <h3>High-availability systems <span>Earlier in career</span></h3>
+        <p>Hardware-near development on Linux-based clustering and virtualisation software, including a patented fencing device that prevents split-brain scenarios and protects data integrity in HA clusters.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Skills overview</h2>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3>Embedded &amp; edge</h3>
+        <span class="sub">Linux on constrained hardware</span>
+        <div class="stack mono">
+          <span>Embedded Linux</span><span>Nvidia Jetson</span><span>Rust</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Security &amp; monitoring</h3>
+        <span class="sub">Hardening &amp; visibility</span>
+        <div class="stack mono">
+          <span>ESET Protect &amp; Inspect</span><span>IBM QRadar</span><span>Greenbone</span><span>Fortigate</span><span>iptables</span><span>Grafana</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Cloud &amp; virtualisation</h3>
+        <span class="sub">Multi-tenant infrastructure</span>
+        <div class="stack mono">
+          <span>VMware</span><span>Proxmox</span><span>OpenStack</span><span>Kubernetes</span><span>Docker</span><span>GCP</span><span>AWS</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Systems administration</h3>
+        <span class="sub">Linux &amp; Windows</span>
+        <div class="stack mono">
+          <span>RHEL</span><span>Debian</span><span>OpenSUSE</span><span>Windows Active Directory</span><span>Ansible</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Databases</h3>
+        <span class="sub">Administration &amp; clustering</span>
+        <div class="stack mono">
+          <span>MySQL</span><span>PostgreSQL</span><span>MSSQL Cluster</span><span>Percona/Galera</span><span>DRBD</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>AI &amp; web development</h3>
+        <span class="sub">Applications &amp; deployment</span>
+        <div class="stack mono">
+          <span>Next.js</span><span>vLLM</span><span>Vector embeddings</span><span>Terraform</span><span>CI/CD (GitLab)</span><span>Node.js</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>High availability</h3>
+        <span class="sub">Hardware-near development</span>
+        <div class="stack mono">
+          <span>Linux clustering</span><span>Virtualisation</span><span>Fencing devices</span><span>Split-brain prevention</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Education</h2>
+    <div class="edu">
+      <div class="edu-item">
+        <span class="when mono">Oct 2018 – Sep 2019</span>
+        <h4>Carl von Ossietzky Universität Oldenburg</h4>
+        <p>Informatik — Bachelor of Science (in progress)</p>
+      </div>
+      <div class="edu-item">
+        <span class="when mono">Apr 2016 – Sep 2017</span>
+        <h4>Leibniz Universität Hannover</h4>
+        <p>Informatik — Bachelor of Science</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Core skills</h2>
+    <div class="skillstrip mono">
+      <span>Embedded Linux</span>
+      <span>Nvidia Jetson</span>
+      <span>Rust</span>
+      <span>Tauri</span>
+      <span>Android</span>
+      <span>HTML / CSS / JS / TS</span>
+      <span>Linux Server Administration</span>
+      <span>MySQL / PostgreSQL</span>
+      <span>VMware / Proxmox / OpenStack</span>
+      <span>Fortigate / iptables</span>
+      <span>ESET / QRadar / Greenbone</span>
+      <span>Grafana</span>
+      <span>CI/CD &amp; DevOps</span>
+      <span>Jira</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>How we can work together</h2>
+    <div class="engage">
+      <div>
+        <h4>Fixed-scope projects</h4>
+        <p>A defined application, feature, or migration with a clear start and end point.</p>
+      </div>
+      <div>
+        <h4>Ongoing contract</h4>
+        <p>Embedded with your team on a part-time or full-time basis for the duration of a project.</p>
+      </div>
+      <div>
+        <h4>Ad hoc &amp; support</h4>
+        <p>Database administration or infrastructure support on an as-needed basis.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="signature">
+    <div class="lines">
+      <a href="mailto:kilian.ischtschuk@gmail.com">kilian.ischtschuk@gmail.com</a>
+      <a href="tel:+4917655235132">+49 176 55235132</a>
+      <a href="https://www.linkedin.com/in/kilian-ischtschuk-b9a739272/">LinkedIn</a>
+    </div>
+    <div class="stamp">OPEN TO NEW WORK</div>
+  </div>
+
+  <footer>Kilian Ischtschuk · Software Architect &amp; Software Developer</footer>
+</div>
+<script>
+  (function(){
+    var bg = document.getElementById('gridBg');
+    window.addEventListener('mousemove', function(e){
+      bg.style.setProperty('--mx', e.clientX + 'px');
+      bg.style.setProperty('--my', e.clientY + 'px');
+    });
+  })();
+</script>
+</body>
+</html>
