@@ -22,6 +22,8 @@
     --amber:#d1352b;
     --redline:#d1352b;
     --steel:#5a5c62;
+    --cyan:#2be2e2;
+    --cyan-dim:#1a8f8f;
     --radius:2px;
   }
   *{box-sizing:border-box;}
@@ -49,17 +51,17 @@
     position:absolute;
     inset:0;
     background:
-      repeating-linear-gradient(0deg, rgba(209,53,43,0.9) 0 1px, transparent 1px 48px),
-      repeating-linear-gradient(90deg, rgba(209,53,43,0.9) 0 1px, transparent 1px 48px);
+      repeating-linear-gradient(0deg, rgba(43,226,226,0.9) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(43,226,226,0.9) 0 1px, transparent 1px 48px);
     -webkit-mask-image:radial-gradient(circle 140px at var(--mx,-999px) var(--my,-999px), #000 0%, transparent 75%);
     mask-image:radial-gradient(circle 140px at var(--mx,-999px) var(--my,-999px), #000 0%, transparent 75%);
   }
   .wrap{ position:relative; z-index:1; }
   .mono{font-family:'JetBrains Mono', monospace;}
   a{color:var(--amber); text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  ::selection{ background:var(--amber); color:var(--bg); }
-  a:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--amber); outline-offset:2px; }
+  a:hover{text-decoration:underline; color:var(--cyan);}
+  ::selection{ background:var(--cyan); color:var(--bg); }
+  a:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 
   /* hazard strip — used once, as a signal accent under the title block */
   .hazard{
@@ -67,7 +69,7 @@
     background:repeating-linear-gradient(
       -45deg,
       var(--redline) 0 14px,
-      var(--steel) 14px 28px
+      var(--cyan) 14px 28px
     );
   }
 
@@ -77,6 +79,15 @@
   .titleblock{
     border:1px solid var(--line);
     background:var(--panel);
+    position:relative;
+  }
+  .titleblock::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:3px; height:100%;
+    background:linear-gradient(180deg, var(--cyan), transparent 70%);
+    opacity:0.8;
   }
   .titleblock .top{
     display:flex;
@@ -92,10 +103,11 @@
     font-size:clamp(26px,4vw,38px);
     font-weight:700;
     letter-spacing:-0.01em;
+    text-shadow:0 0 18px rgba(43,226,226,0.25);
   }
   .titleblock .role{
     margin:0;
-    color:var(--amber);
+    color:var(--cyan);
     font-size:15px;
   }
   .status{
@@ -107,8 +119,8 @@
   }
   .status .avail{
     display:inline-block;
-    color:#fff;
-    background:var(--amber);
+    color:var(--bg);
+    background:var(--cyan);
     padding:3px 8px;
     border-radius:var(--radius);
     font-weight:600;
@@ -126,7 +138,7 @@
     border-right:1px solid var(--line);
   }
   .meta-row div:last-child{border-right:none;}
-  .meta-row b{display:block; color:var(--ink); font-size:12.5px; margin-top:3px; font-weight:500;}
+  .meta-row b{display:block; color:var(--cyan); font-size:12.5px; margin-top:3px; font-weight:500;}
   @media (max-width:640px){
     .meta-row{grid-template-columns:1fr 1fr;}
     .meta-row div{border-bottom:1px solid var(--line);}
@@ -152,6 +164,15 @@
     margin:0 0 14px;
     padding-bottom:10px;
     border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  section.block > h2::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-1px;
+    width:52px; height:1px;
+    background:var(--cyan);
+    box-shadow:0 0 8px rgba(43,226,226,0.6);
   }
 
   /* ---------- services ---------- */
@@ -171,14 +192,15 @@
     transition:border-left-color .15s ease, background-color .15s ease;
   }
   .svc:hover{
-    border-left-color:var(--amber);
+    border-left-color:var(--cyan);
     background:var(--line-soft);
+    box-shadow:inset 0 0 24px rgba(43,226,226,0.05);
   }
-  .svc:hover h3{color:var(--amber);}
+  .svc:hover h3{color:var(--cyan);}
   .svc .code{
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
-    color:var(--amber);
+    color:var(--cyan);
     display:block;
     margin-bottom:8px;
   }
@@ -203,10 +225,10 @@
     transition:border-left-color .15s ease, background-color .15s ease;
   }
   .domain:hover{
-    border-left-color:var(--amber);
+    border-left-color:var(--cyan);
     background:var(--line-soft);
   }
-  .domain:hover h3{color:var(--amber);}
+  .domain:hover h3{color:var(--cyan);}
   @media (max-width:640px){ .domain{grid-template-columns:1fr; gap:6px;} }
   .domain h3{
     margin:0;
@@ -219,7 +241,7 @@
     display:block;
     font-family:'JetBrains Mono', monospace;
     font-size:10.5px;
-    color:var(--dim);
+    color:var(--amber);
     font-weight:400;
     margin-top:4px;
   }
@@ -239,11 +261,12 @@
     padding:6px 11px;
     border-radius:var(--radius);
     background:var(--panel);
-    transition:border-color .15s ease, color .15s ease;
+    transition:border-color .15s ease, color .15s ease, box-shadow .15s ease;
   }
   .skillstrip span:hover{
-    border-color:var(--amber);
-    color:var(--amber);
+    border-color:var(--cyan);
+    color:var(--cyan);
+    box-shadow:0 0 10px rgba(43,226,226,0.25);
   }
 
   /* ---------- experience timeline ---------- */
@@ -275,7 +298,7 @@
   .job .when{
     font-family:'JetBrains Mono', monospace;
     font-size:11.5px;
-    color:var(--amber);
+    color:var(--cyan);
     white-space:nowrap;
   }
   .job .where{
@@ -306,8 +329,8 @@
     transition:border-color .15s ease, color .15s ease;
   }
   .stack span:hover{
-    border-color:var(--amber);
-    color:var(--amber);
+    border-color:var(--cyan);
+    color:var(--cyan);
   }
 
   /* ---------- skills overview (category cards) ---------- */
@@ -327,10 +350,10 @@
     transition:border-left-color .15s ease, background-color .15s ease;
   }
   .skill-cat:hover{
-    border-left-color:var(--amber);
+    border-left-color:var(--cyan);
     background:var(--line-soft);
   }
-  .skill-cat:hover h3{color:var(--amber);}
+  .skill-cat:hover h3{color:var(--cyan);}
   .skill-cat h3{margin:0 0 3px; font-size:15px; font-weight:600; color:var(--ink); transition:color .15s ease;}
   .skill-cat .sub{
     display:block;
@@ -356,10 +379,10 @@
     transition:border-left-color .15s ease, background-color .15s ease;
   }
   .edu-item:hover{
-    border-left-color:var(--amber);
+    border-left-color:var(--cyan);
     background:var(--line-soft);
   }
-  .edu-item:hover h4{color:var(--amber);}
+  .edu-item:hover h4{color:var(--cyan);}
   .edu-item h4{
     margin:0 0 4px;
     font-size:14.5px;
@@ -370,7 +393,7 @@
   .edu-item .when{
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
-    color:var(--amber);
+    color:var(--cyan);
     display:block;
     margin-bottom:6px;
   }
@@ -389,7 +412,7 @@
   .engage h4{
     margin:0 0 6px;
     font-size:14px;
-    color:var(--amber);
+    color:var(--cyan);
   }
   .engage p{margin:0; color:var(--dim); font-size:13.5px;}
 
@@ -397,6 +420,7 @@
   .signature{
     margin-top:40px;
     border:1px solid var(--line);
+    border-top:2px solid var(--cyan);
     background:var(--panel);
     padding:26px;
     display:flex;
@@ -412,18 +436,19 @@
     color:var(--ink);
     margin-bottom:6px;
   }
-  .signature .lines a:hover{color:var(--amber);}
+  .signature .lines a:hover{color:var(--cyan);}
   .signature .stamp{
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
-    color:var(--redline);
-    border:2px solid var(--redline);
+    color:var(--cyan);
+    border:2px solid var(--cyan);
     padding:8px 14px;
     border-radius:var(--radius);
     transform:rotate(-2deg);
     white-space:nowrap;
     font-weight:600;
     letter-spacing:0.02em;
+    text-shadow:0 0 8px rgba(43,226,226,0.5);
   }
 
   footer{
@@ -432,6 +457,10 @@
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
     margin-top:36px;
+  }
+  footer::before{
+    content:"// ";
+    color:var(--cyan-dim);
   }
 </style>
 </head>
